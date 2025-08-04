@@ -44,33 +44,20 @@ def player(prev_play, opponent_history=[]): # opponent_history parameter is igno
 
     # Mrugesh (Rounds 1001-2000)
     elif round_count <= ROUNDS_PER_OPPONENT * 2:
-        # Strategy: "The Mrugesh Pattern Breaker"
-        # The most reliable way to beat Mrugesh is to make it impossible for it to find a consistent
-        # "most frequent" move in our history, OR to make the "most frequent" move work in our favor.
-        # This strategy uses a dynamic approach, prioritizing beating Mrugesh's *last* move,
-        # but introduces controlled noise to prevent our history from becoming exploitable.
-
+    
         if current_opponent_round == 1:
-            move = "P" # Guaranteed win against Mrugesh's default 'R' in Round 1
+            move = "P" 
         elif prev_play:
-            # Main strategy: Try to beat Mrugesh's *last actual move*
-            # This makes our current play adaptive to Mrugesh's immediate action,
-            # rather than relying solely on our own history for Mrugesh's prediction.
             
-            # We combine this with strategic variation to prevent us from becoming predictable.
             r = random.random()
-            if r < 0.70: # 70% of the time: Play the move that beats Mrugesh's last move.
-                        # This aims for direct wins and makes our history reflect what beats Mrugesh.
+            if r < 0.70: 
                 move = beats[prev_play]
-            elif r < 0.90: # 20% of the time: Play a random move.
-                          # This introduces high-level noise into our history, making it harder for Mrugesh
-                          # to find a *single* most frequent move, or leading to Mrugesh picking a random counter.
+            elif r < 0.90: 
                 move = random.choice(["R", "P", "S"])
-            else: # 10% of the time: Copy Mrugesh's last move (leads to a tie).
-                  # Ties prevent losses and also add variety to our history that isn't always a winning pattern.
+            else: 
                 move = prev_play
         else:
-            # Fallback for very early rounds if prev_play is empty after round 1
+            
             move = random.choice(["R", "P", "S"])
 
     # Kris (Rounds 2001-3000)
