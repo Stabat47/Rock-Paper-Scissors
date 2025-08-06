@@ -3,7 +3,7 @@ from collections import Counter
 
 # Global state variables
 my_history = []
-opponent_history_global = [] # Bot's history of the opponent's moves
+opponent_history_global = [] # History of opponent's moves
 round_count = 0
 beats = {"R": "P", "P": "S", "S": "R"}
 what_beats_me = {"R": "P", "P": "S", "S": "R"} 
@@ -50,6 +50,7 @@ def player(prev_play, opponent_history=[]):
         # Initial move against Mrugesh for a consistent start
         if current_opponent_round == 1:
             move = "P" # this is based on the assumption that Mrugesh starts with "R" to counter "S"
+                       # From observation, Mrugesh looks at history from Quincy to play first move.
         elif prev_play: # Only execute if Mrugesh has made a move
             r = random.random()
             
@@ -58,10 +59,10 @@ def player(prev_play, opponent_history=[]):
             if r < 0.85: 
                 move = beats[prev_play]
             # For the remaining 15%, introduce pure randomness.
-            # This is crucial to prevent Mrugesh from finding a stable most_frequent pattern in your history.
+            # This is crucial to prevent Mrugesh from finding a stable most_frequent pattern in my history.
             else: 
                 move = random.choice(["R", "P", "S"])
-        # If Mrugesh hasn't played yet, default to a random move
+        # If Mrugesh hasn't played yet, random choice
         else:
             move = random.choice(["R", "P", "S"])
 
@@ -108,7 +109,7 @@ def player(prev_play, opponent_history=[]):
     my_history.append(move)
     return move
 
- # After playing with Mrugesh I still to get a 60% win rate against him. 
- # The abouve code howerver guarantees a 50% or more win rate against him.
+ # After playing with Mrugesh I am still to get a 60% win rate against him. 
+ # The above code howerver guarantees a 50% or more win rate against him. a winning formular every time. but not enough huhhh?
  # Help me if you've got a better code.
  
